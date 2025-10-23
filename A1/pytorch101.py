@@ -591,7 +591,10 @@ def normalize_columns(x: Tensor) -> Tensor:
     #                      TODO: Implement this function                     #
     ##########################################################################
     # Replace "pass" statement with your code
-    pass
+    mean = x.sum(dim=0) / x.shape[0]
+    variance = ((x - mean) ** 2).sum(dim=0) / (x.shape[0]-1)
+    stddev = variance.sqrt()
+    y = (x - mean) / stddev
     ##########################################################################
     #                            END OF YOUR CODE                            #
     ##########################################################################
