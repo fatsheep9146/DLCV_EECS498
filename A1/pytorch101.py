@@ -463,7 +463,9 @@ def zero_row_min(x: Tensor) -> Tensor:
     #                      TODO: Implement this function                     #
     ##########################################################################
     # Replace "pass" statement with your code
-    pass
+    mins, col_min_idxs = x.min(dim=1)
+    y = x.clone()
+    y[torch.arange(x.shape[0]), col_min_idxs] = 0
     ##########################################################################
     #                            END OF YOUR CODE                            #
     ##########################################################################
@@ -519,7 +521,11 @@ def batched_matrix_multiply_loop(x: Tensor, y: Tensor) -> Tensor:
     #                      TODO: Implement this function                      #
     ###########################################################################
     # Replace "pass" statement with your code
-    pass
+    B = x.shape[0]
+    z_list = []
+    for i in range(B):
+        z_list.append(x[i].mm(y[i]))
+    z = torch.stack(z_list, dim=0)
     ###########################################################################
     #                           END OF YOUR CODE                              #
     ###########################################################################
@@ -550,7 +556,7 @@ def batched_matrix_multiply_noloop(x: Tensor, y: Tensor) -> Tensor:
     #                      TODO: Implement this function                      #
     ###########################################################################
     # Replace "pass" statement with your code
-    pass
+    z = x.bmm(y)
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################
